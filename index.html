@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmed Ashraf - Video Editor</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0f0f23;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 50, 171, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffd700;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, rgb(0,50,171) 0%, #1a1a3e 100%);
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            max-width: 1000px;
+            padding: 0 2rem;
+        }
+
+        .hero-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        .hero-image {
+            flex: 0 0 300px;
+            text-align: center;
+        }
+
+        .hero-image img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffffff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #cccccc;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, rgb(0,50,171), #ffd700);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #ffd700;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.5rem;
+            color: #ffd700;
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: #cccccc;
+            margin-bottom: 1.5rem;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill {
+            background: linear-gradient(135deg, rgba(0,50,171,0.3), rgba(255,215,0,0.1));
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255,215,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .skill:hover {
+            transform: scale(1.05);
+        }
+
+        /* Experience Section */
+        .experience {
+            background: rgba(255,255,255,0.02);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+        }
+
+        .experience-item {
+            border-left: 3px solid #ffd700;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0;
+            width: 13px;
+            height: 13px;
+            background: #ffd700;
+            border-radius: 50%;
+        }
+
+        .experience-date {
+            color: #ffd700;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .experience-title {
+            font-size: 1.3rem;
+            margin: 0.5rem 0;
+            color: #ffffff;
+        }
+
+        .experience-desc {
+            color: #cccccc;
+        }
+
+        /* Portfolio Section */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 3rem;
+        }
+
+        .video-card {
+            background: linear-gradient(145deg, rgba(0,50,171,0.15), rgba(255,215,0,0.05));
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border: 2px solid rgba(255,215,0,0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover .video-container iframe {
+            transform: scale(1.05);
+        }
+
+        .video-info {
+            padding: 2rem;
+            background: linear-gradient(145deg, rgba(0,50,171,0.1), rgba(15,15,35,0.8));
+        }
+
+        .video-title {
+            font-size: 1.3rem;
+            color: #ffd700;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .video-desc {
+            color: #cccccc;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(0,50,171,0.2), rgba(255,215,0,0.05));
+            border-radius: 15px;
+            border: 1px solid rgba(255,215,0,0.2);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .contact-item h3 {
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item p {
+            color: #cccccc;
+        }
+
+        .contact-item a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .hero-image {
+                flex: none;
+            }
+
+            .hero-image img {
+                width: 200px;
+                height: 200px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Ahmed Ashraf</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Ahmed Ashraf</h1>
+                <p>Professional Video Editor & Content Creator</p>
+                <p>Transforming ideas into compelling visual stories with 2+ years of experience in creating engaging video content</p>
+                <a href="#portfolio" class="cta-button">View My Work</a>
+            </div>
+            <div class="hero-image">
+                <img src="img.jpg" alt="Ahmed Ashraf">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section fade-in">
+        <h2>About Me</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <h3>Creative Video Editor</h3>
+                <p>Passionate video editor with over 2 years of experience creating high-quality content across diverse genres including promotional videos, social media content, and corporate presentations.</p>
+                <p>Currently studying at Alexandria University's Faculty of Fine Arts, combining technical expertise with artistic vision to deliver exceptional results.</p>
+                <p>Specialized in YouTube automation, content creation, and social media marketing through visual storytelling.</p>
+            </div>
+            <div class="skills">
+                <div class="skill">Adobe Premiere Pro</div>
+                <div class="skill">Final Cut Pro</div>
+                <div class="skill">DaVinci Resolve</div>
+                <div class="skill">After Effects</div>
+                <div class="skill">Color Grading</div>
+                <div class="skill">Motion Graphics</div>
+                <div class="skill">YouTube SEO</div>
+                <div class="skill">Content Strategy</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section fade-in">
+        <h2>Experience</h2>
+        <div class="experience">
+            <div class="experience-item">
+                <div class="experience-date">July 2024 - July 2025</div>
+                <div class="experience-title">Video Editor - GOO HUB LLC Company</div>
+                <div class="experience-desc">Full-time video editor specializing in YouTube automation and content creation. Managed multiple projects, collaborated with international teams, and consistently delivered high-quality videos that exceeded client expectations.</div>
+            </div>
+            <div class="experience-item">
+                <div class="experience-date">2024 - Present</div>
+                <div class="experience-title">Instagram Content Creator & Video Producer</div>
+                <div class="experience-desc">Created and edited all video content for high-engagement Instagram reels, including promotional videos, spokesperson clips, and animated content. Successfully delivered projects for various clients with consistent 4.0+ ratings on Upwork platform.</div>
+            </div>
+            <div class="experience-item">
+                <div class="experience-date">July 2024</div>
+                <div class="experience-title">Freelance Video Editor - Cahil Bealmear</div>
+                <div class="experience-desc">Edited video content for professional YouTube channel, worked with sensitive topics, and ensured high production value with superior audio-visual quality.</div>
+            </div>
+            <div class="experience-item">
+                <div class="experience-date">January 2024 - February 2024</div>
+                <div class="experience-title">Video Editor Intern - GOO HUB LLC Company</div>
+                <div class="experience-desc">Gained hands-on experience in YouTube cash cow video production, Instagram Reels creation, and commercial content editing while meeting strict deadlines.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section fade-in">
+        <h2>Featured Work</h2>
+        <div class="portfolio-grid">
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/XGVUHPl4YuI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Argument Defense Strategy</h3>
+                    <p class="video-desc">Educational content with dynamic editing, smooth transitions, and engaging visual elements designed to maximize viewer retention.</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/XoqPL0nczfY" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Social Life Enhancement</h3>
+                    <p class="video-desc">Motivational content featuring professional color grading, compelling storytelling, and strategic pacing for optimal engagement.</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/zDEfjg6ylFA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Happiness Psychology</h3>
+                    <p class="video-desc">Psychological content with seamless editing techniques, professional audio mixing, and compelling visual storytelling.</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-container">
+                    <video controls style="width: 100%; height: 100%;">
+                        <source src="https://drive.google.com/uc?export=download&id=1Qk-ZU4rXBh7n1ISR0sKqMsG_IY-I5CAn" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Spokesperson Video Production</h3>
+                    <p class="video-desc">Professional spokesperson video with precise timing, clean audio mixing, and engaging visual presentation for client marketing campaigns.</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-container">
+                    <video controls style="width: 100%; height: 100%;">
+                        <source src="https://drive.google.com/uc?export=download&id=1425nd1RV1apXLULH2DbR5vmzDlTHO4fD" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Commercial Content Creation</h3>
+                    <p class="video-desc">High-impact commercial video featuring dynamic transitions, professional color correction, and strategic visual storytelling for brand promotion.</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-container">
+                    <video controls style="width: 100%; height: 100%;">
+                        <source src="https://drive.google.com/uc?export=download&id=10TNJh7-nKeHDxsmh1etdPlQvgGobHi00" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Animated Video Content</h3>
+                    <p class="video-desc">Creative animated video with smooth motion graphics, engaging visual effects, and professional audio synchronization for enhanced viewer experience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section fade-in">
+        <h2>Let's Work Together</h2>
+        <div class="contact-grid">
+            <div class="contact-item">
+                <div class="contact-icon">📱</div>
+                <h3>Phone</h3>
+                <p>01206959517</p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">📧</div>
+                <h3>Email</h3>
+                <p>ahmedelnegm192@gmail.com</p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">💼</div>
+                <h3>Upwork</h3>
+                <p><a href="https://www.upwork.com/freelancers/~010f4ba794c46a1f61" target="_blank">View Profile</a></p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Fade in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
